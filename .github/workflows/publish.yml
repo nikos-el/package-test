@@ -12,6 +12,6 @@ jobs:
         username: ${{ github.actor }}
         password: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          docker build . --tag ghcr.io/deselikem/hello-docker-gcr-demo:latest
-          docker run ghcr.io/deselikem/hello-docker-gcr-demo:latest
-          docker push ghcr.io/deselikem/hello-docker-gcr-demo:latest
+          docker build . --tag ghcr.io/nikos-el/hello-docker-gcr-demo:latest
+          docker run ghcr.io/nikos-el/hello-docker-gcr-demo:latest
+          docker push ghcr.io/nikos-el/hello-docker-gcr-demo:latest
