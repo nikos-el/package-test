@@ -1,17 +1,29 @@
 name: publish
+
 on: [push]
+
+env:
+  REGISTRY: ghcr.io
+  IMAGE_NAME: ${{ github.repository }}
+
 jobs:
   publish-hello-docker-image:
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
+      
     steps:
-    - uses: actions/checkout@v2
-    - name: Login to GitHub Container Registry
-      uses: docker/login-action@v1
-      with:
-        registry: ghcr.io
-        username: ${{ github.actor }}
-        password: ${{ secrets.GITHUB_TOKEN }}
-        run: |
-          docker build . --tag ghcr.io/nikos-el/hello-docker-gcr-demo:latest
-          docker run ghcr.io/nikos-el/hello-docker-gcr-demo:latest
-          docker push ghcr.io/nikos-el/hello-docker-gcr-demo:latest
+      - name: Checkout repository
+        uses: actions/checkout@v2
+      
+      - name: Login to GitHub Container Registry
+        uses: docker/login-action@v1
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+          run: |
+            docker build . --tag ghcr.io/nikos-el/hello-docker-gcr-demo:latest
+            docker run ghcr.io/nikos-el/hello-docker-gcr-demo:latest
+            docker push ghcr.io/nikos-el/hello-docker-gcr-demo:latest
